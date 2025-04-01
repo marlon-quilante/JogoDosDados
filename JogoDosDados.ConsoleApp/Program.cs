@@ -4,13 +4,36 @@
     {
         static void Main(string[] args)
         {
+            const int limiteLinhaChegada = 30;
+
             while (true)
             {
-                ExibirCabecalho();
+                int posicaoUsuario = 0;
+                bool jogoEstaEmAndamento = true;
 
-                int resultado = LancarDado();
+                while (jogoEstaEmAndamento)
+                {
+                    ExibirCabecalho();
 
-                ExibirResultadoSorteio(resultado);
+                    int resultado = LancarDado();
+
+                    ExibirResultadoSorteio(resultado);
+
+                    posicaoUsuario += resultado;
+
+                    if (posicaoUsuario >= limiteLinhaChegada)
+                    {
+                        Console.WriteLine("Parabéns, você alcançou a linha de chegada!");
+                        jogoEstaEmAndamento = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"O jogador está na posição: {posicaoUsuario} de {limiteLinhaChegada}");
+                    }
+
+                    Console.Write("\nPressione ENTER para continuar...");
+                    Console.ReadLine();
+                }
 
                 string opcaoContinuar = ExibirMenuContinuar();
 
@@ -46,7 +69,7 @@
 
         static string ExibirMenuContinuar()
         {
-            Console.Write("Deseja continuar? (S/N) ");
+            Console.Write("\nDeseja continuar? (S/N) ");
             return Console.ReadLine()!.ToUpper();
         }
     }
