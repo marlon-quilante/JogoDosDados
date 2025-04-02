@@ -30,7 +30,7 @@
                     }
                     else
                     {
-                        Console.WriteLine($"O jogador está na posição: {posicaoUsuario} de {limiteLinhaChegada}");
+                        Console.WriteLine($"Você está na posição: {posicaoUsuario} de {limiteLinhaChegada}");
                         Console.Write("\nPressione ENTER para continuar...");
                         Console.ReadLine();
                     }
@@ -104,9 +104,17 @@
             return LancarDado();
         }
 
-        static int AvancarCasaUsuario(int posicaoUsuario, int resultado)
+        static int AvancarCasaUsuario(int posicaoUsuario, int resultadoUsuario)
         {
-            return posicaoUsuario += resultado;
+            posicaoUsuario += resultadoUsuario;
+
+            if (posicaoUsuario == 5 || posicaoUsuario == 10 || posicaoUsuario == 15)
+            {
+                Console.WriteLine("Você parou em uma posição sorteada e irá avançar mais 3 casas\n");
+                posicaoUsuario += 3;
+            }
+
+            return posicaoUsuario;
         }
 
         static bool UsuarioVenceu(int posicaoUsuario, int limiteLinhaChegada)
@@ -128,7 +136,15 @@
 
         static int AvancarCasaComputador(int posicaoComputador, int resultadoComputador)
         {
-            return posicaoComputador += resultadoComputador;
+            posicaoComputador += resultadoComputador;
+
+            if (posicaoComputador == 5 || posicaoComputador == 10 || posicaoComputador == 15)
+            {
+                Console.WriteLine("O computador parou em uma posição sorteada e irá avançar mais 3 casas\n");
+                posicaoComputador += 3;
+            }
+
+            return posicaoComputador;
         }
 
         static bool ComputadorVenceu(int posicaoComputador, int limiteLinhaChegada)
