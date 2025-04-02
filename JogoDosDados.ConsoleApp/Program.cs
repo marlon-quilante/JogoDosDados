@@ -15,46 +15,35 @@
                 while (jogoEstaEmAndamento)
                 {
                     //Turno do usuário
-
                     ExibirCabecalho("Usuário");
+                    int resultadoUsuario = ResultadoUsuario();
+                    ExibirResultadoSorteio(resultadoUsuario);
+                    posicaoUsuario = AvancarCasaUsuario(posicaoUsuario, resultadoUsuario);
 
-                    int resultado = LancarDado();
-
-                    ExibirResultadoSorteio(resultado);
-
-                    posicaoUsuario += resultado;
-
-                    if (posicaoUsuario >= limiteLinhaChegada)
+                    if (UsuarioVenceu(posicaoUsuario, limiteLinhaChegada))
                     {
                         Console.WriteLine("Parabéns, você alcançou a linha de chegada!");
                         Console.Write("\nPressione ENTER para continuar...");
                         Console.ReadLine();
-
                         jogoEstaEmAndamento = false;
                         continue;
                     }
                     else
                     {
                         Console.WriteLine($"O jogador está na posição: {posicaoUsuario} de {limiteLinhaChegada}");
+                        Console.Write("\nPressione ENTER para continuar...");
+                        Console.ReadLine();
                     }
 
-                    Console.Write("\nPressione ENTER para continuar...");
-                    Console.ReadLine();
-
                     //Turno do computador
-
                     ExibirCabecalho("Computador");
-
-                    int resultadoComputador = LancarDado();
-
+                    int resultadoComputador = ResultadoComputador();
                     ExibirResultadoSorteio(resultadoComputador);
+                    posicaoComputador = AvancarCasaComputador(posicaoComputador, resultadoComputador);
 
-                    posicaoComputador += resultadoComputador;
-
-                    if (posicaoComputador >= limiteLinhaChegada)
+                    if (ComputadorVenceu(posicaoComputador, limiteLinhaChegada))
                     {
                         Console.WriteLine("Que pena, o computador alcançou a linha de chegada!");
-
                         Console.Write("\nPressione ENTER para continuar...");
                         Console.ReadLine();
                         jogoEstaEmAndamento = false;
@@ -63,12 +52,10 @@
                     else
                     {
                         Console.WriteLine($"O computador está na posição: {posicaoComputador} de {limiteLinhaChegada}");
+                        Console.Write("\nPressione ENTER para continuar...");
+                        Console.ReadLine();
                     }
-
-                    Console.Write("\nPressione ENTER para continuar...");
-                    Console.ReadLine();
                 }
-
                 string opcaoContinuar = ExibirMenuContinuar();
 
                 if (opcaoContinuar != "S")
@@ -83,11 +70,11 @@
             Console.WriteLine("Jogo dos Dados");
             Console.WriteLine("------------------------------------------");
             Console.WriteLine($"Turno do: {nomeJogador}");
-            Console.WriteLine("------------------------------------------");
 
             if (nomeJogador != "Computador")
             {
-                Console.Write("Pressione ENTER para lançar o dado...");
+                Console.WriteLine("------------------------------------------");
+                Console.Write("\nPressione ENTER para lançar o dado...");
                 Console.ReadLine();
             }
         }
@@ -101,15 +88,59 @@
 
         static void ExibirResultadoSorteio(int resultado)
         {
-            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("\n------------------------------------------");
             Console.WriteLine($"O valor sorteado foi: {resultado}");
-            Console.WriteLine("------------------------------------------");            
+            Console.WriteLine("------------------------------------------");
         }
 
         static string ExibirMenuContinuar()
         {
             Console.Write("\nDeseja continuar? (S/N) ");
             return Console.ReadLine()!.ToUpper();
+        }
+
+        static int ResultadoUsuario()
+        {
+            return LancarDado();
+        }
+
+        static int AvancarCasaUsuario(int posicaoUsuario, int resultado)
+        {
+            return posicaoUsuario += resultado;
+        }
+
+        static bool UsuarioVenceu(int posicaoUsuario, int limiteLinhaChegada)
+        {
+            if (posicaoUsuario >= limiteLinhaChegada)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        static int ResultadoComputador()
+        {
+            return LancarDado();
+        }
+
+        static int AvancarCasaComputador(int posicaoComputador, int resultadoComputador)
+        {
+            return posicaoComputador += resultadoComputador;
+        }
+
+        static bool ComputadorVenceu(int posicaoComputador, int limiteLinhaChegada)
+        {
+            if (posicaoComputador >= limiteLinhaChegada)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
