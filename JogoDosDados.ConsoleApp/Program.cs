@@ -110,8 +110,14 @@
 
             if (posicaoUsuario == 5 || posicaoUsuario == 10 || posicaoUsuario == 15)
             {
-                Console.WriteLine("Você parou em uma posição sorteada e irá avançar mais 3 casas\n");
+                Console.WriteLine("Você parou em uma posição sorteada e irá avançar mais 3 casas!\n");
                 posicaoUsuario += 3;
+            }
+
+            if (posicaoUsuario == 7 || posicaoUsuario == 14 || posicaoUsuario == 20)
+            {
+                Console.WriteLine("Você parou em uma posição com armadilha e irá retornar 2 casas!\n");
+                posicaoUsuario -= 2;
             }
 
             return posicaoUsuario;
@@ -140,8 +146,14 @@
 
             if (posicaoComputador == 5 || posicaoComputador == 10 || posicaoComputador == 15)
             {
-                Console.WriteLine("O computador parou em uma posição sorteada e irá avançar mais 3 casas\n");
+                Console.WriteLine("O computador parou em uma posição sorteada e irá avançar mais 3 casas!\n");
                 posicaoComputador += 3;
+            }
+
+            if (posicaoComputador == 7 || posicaoComputador == 14 || posicaoComputador == 20)
+            {
+                Console.WriteLine("O computador parou em uma posição com armadilha e irá retornar 2 casas!\n");
+                posicaoComputador -= 2;
             }
 
             return posicaoComputador;
