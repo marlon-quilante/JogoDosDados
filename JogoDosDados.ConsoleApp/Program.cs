@@ -16,7 +16,7 @@
                 {
                     //Turno do usuário
                     ExibirCabecalho("Usuário");
-                    int resultadoUsuario = ResultadoUsuario();
+                    int resultadoUsuario = LancarDado();
                     ExibirResultadoSorteio(resultadoUsuario);
                     posicaoUsuario = AvancarCasaUsuario(posicaoUsuario, resultadoUsuario);
 
@@ -37,7 +37,7 @@
 
                     //Turno do computador
                     ExibirCabecalho("Computador");
-                    int resultadoComputador = ResultadoComputador();
+                    int resultadoComputador = LancarDado();
                     ExibirResultadoSorteio(resultadoComputador);
                     posicaoComputador = AvancarCasaComputador(posicaoComputador, resultadoComputador);
 
@@ -88,7 +88,7 @@
 
         static void ExibirResultadoSorteio(int resultado)
         {
-            Console.WriteLine("\n------------------------------------------");
+            Console.WriteLine("------------------------------------------");
             Console.WriteLine($"O valor sorteado foi: {resultado}");
             Console.WriteLine("------------------------------------------");
         }
@@ -99,27 +99,38 @@
             return Console.ReadLine()!.ToUpper();
         }
 
-        static int ResultadoUsuario()
-        {
-            return LancarDado();
-        }
-
         static int AvancarCasaUsuario(int posicaoUsuario, int resultadoUsuario)
         {
-            posicaoUsuario += resultadoUsuario;
-
-            if (posicaoUsuario == 5 || posicaoUsuario == 10 || posicaoUsuario == 15)
+            while (true)
             {
-                Console.WriteLine("Você parou em uma posição sorteada e irá avançar mais 3 casas!\n");
-                posicaoUsuario += 3;
-            }
+                posicaoUsuario += resultadoUsuario;
 
-            if (posicaoUsuario == 7 || posicaoUsuario == 14 || posicaoUsuario == 20)
-            {
-                Console.WriteLine("Você parou em uma posição com armadilha e irá retornar 2 casas!\n");
-                posicaoUsuario -= 2;
-            }
+                if (posicaoUsuario == 5 || posicaoUsuario == 10 || posicaoUsuario == 15)
+                {
+                    Console.WriteLine("Você parou em uma posição sorteada e irá avançar mais 3 casas!\n");
+                    posicaoUsuario += 3;
+                }
 
+                if (posicaoUsuario == 7 || posicaoUsuario == 14 || posicaoUsuario == 20)
+                {
+                    Console.WriteLine("Você parou em uma posição com armadilha e irá retornar 2 casas!\n");
+                    posicaoUsuario -= 2;
+                }
+
+                if (resultadoUsuario == 6)
+                {
+                    Console.WriteLine("\nVocê tirou 6 no dado e pode jogar mais uma vez!");
+                    Console.WriteLine("\nPressione ENTER para lançar o dado novamente...");
+                    Console.ReadLine();
+                    resultadoUsuario = LancarDado();
+                    ExibirResultadoSorteio(resultadoUsuario);
+                }
+
+                else
+                {
+                    break;
+                }
+            }
             return posicaoUsuario;
         }
 
@@ -135,27 +146,37 @@
             }
         }
 
-        static int ResultadoComputador()
-        {
-            return LancarDado();
-        }
-
         static int AvancarCasaComputador(int posicaoComputador, int resultadoComputador)
         {
-            posicaoComputador += resultadoComputador;
-
-            if (posicaoComputador == 5 || posicaoComputador == 10 || posicaoComputador == 15)
+            while (true)
             {
-                Console.WriteLine("O computador parou em uma posição sorteada e irá avançar mais 3 casas!\n");
-                posicaoComputador += 3;
-            }
+                posicaoComputador += resultadoComputador;
 
-            if (posicaoComputador == 7 || posicaoComputador == 14 || posicaoComputador == 20)
-            {
-                Console.WriteLine("O computador parou em uma posição com armadilha e irá retornar 2 casas!\n");
-                posicaoComputador -= 2;
-            }
+                if (posicaoComputador == 5 || posicaoComputador == 10 || posicaoComputador == 15)
+                {
+                    Console.WriteLine("O computador parou em uma posição sorteada e irá avançar mais 3 casas!\n");
+                    posicaoComputador += 3;
+                }
 
+                if (posicaoComputador == 7 || posicaoComputador == 14 || posicaoComputador == 20)
+                {
+                    Console.WriteLine("O computador parou em uma posição com armadilha e irá retornar 2 casas!\n");
+                    posicaoComputador -= 2;
+                }
+
+                if (resultadoComputador == 6)
+                {
+                    Console.WriteLine("\nO computador tirou 6 no dado e pode jogar mais uma vez!");
+                    Console.WriteLine("\nPressione ENTER para continuar...");
+                    Console.ReadLine();
+                    resultadoComputador = LancarDado();
+                    ExibirResultadoSorteio(resultadoComputador);
+                }
+                else
+                {
+                    break;
+                }
+            } 
             return posicaoComputador;
         }
 
